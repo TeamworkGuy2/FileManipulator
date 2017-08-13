@@ -1,4 +1,4 @@
-package fileManipulator;
+package twg2.fileManipulator;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,10 +11,10 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import programParameter.ParameterSet;
-import fileManipulator.FileManipulator.DebugOp;
-import fileManipulator.FileManipulator.FileLineOp;
-import fileManipulator.FileManipulator.FileManipulatorOp;
+import twg2.cli.ParameterSet;
+import twg2.fileManipulator.FileManipulator.DebugOp;
+import twg2.fileManipulator.FileManipulator.FileLineOp;
+import twg2.fileManipulator.FileManipulator.FileManipulatorOp;
 
 
 /**
@@ -170,13 +170,7 @@ public class FileManipulatorMain {
 
 
 	public static void main(String[] args) throws IOException {
-		if(args.length > 0) {
-			manipulateFileArgs(args);
-		}
-		else {
-			//fileManipulatorTest();
-			manipulateFiles();
-		}
+		manipulateFileArgs(args);
 	}
 
 }

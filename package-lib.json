@@ -1,15 +1,15 @@
 {
-	"version" : "0.1.0",
+	"version" : "0.2.0",
 	"name" : "file-manipulator",
 	"description" : "CLI tool for searching, removing, and replacing text in files",
 	"homepage" : "https://github.com/TeamworkGuy2/FileManipulator",
 	"license" : "MIT",
-	"main" : "./jar/file_manipulator.jar",
+	"main" : "./bin/file_manipulator.jar",
 	"dependencies" : {
+		"jcli": "*",
 		"jcollection-util": "*",
 		"jfile-io": "*",
 		"jfunc": "*",
-		"jparameter": "*",
 		"jprimitive-collections": "*",
 		"jsimple-types": "*",
 		"jtext-util": "*"

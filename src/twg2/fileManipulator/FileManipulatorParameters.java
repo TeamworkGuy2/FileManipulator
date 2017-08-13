@@ -1,16 +1,16 @@
-package fileManipulator;
+package twg2.fileManipulator;
 
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import fileManipulator.FileManipulator.DebugOp;
-import fileManipulator.FileManipulator.FileLineOp;
-import programParameter.ParameterBuilder;
-import programParameter.ParameterData;
-import programParameter.ParameterSet;
+import twg2.cli.ParameterBuilder;
+import twg2.cli.ParameterData;
+import twg2.cli.ParameterSet;
 import twg2.collections.builder.MapBuilder;
+import twg2.fileManipulator.FileManipulator.DebugOp;
+import twg2.fileManipulator.FileManipulator.FileLineOp;
 
 /** The parameters for running a {@link FileManipulator}
  * @author TeamworkGuy2

@@ -1,4 +1,4 @@
-package fileManipulator.test;
+package twg2.fileManipulator.test;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,11 +12,10 @@ import org.junit.Test;
 
 import twg2.collections.builder.MapBuilder;
 import twg2.collections.builder.MapUtil;
-import twg2.collections.tuple.Tuples;
-import fileManipulator.FileManipulator;
-import fileManipulator.FileManipulator.FileLineOp;
-import fileManipulator.FileManipulator.FileManipulatorOp;
-
+import twg2.fileManipulator.FileManipulator;
+import twg2.fileManipulator.FileManipulator.FileLineOp;
+import twg2.fileManipulator.FileManipulator.FileManipulatorOp;
+import twg2.tuple.Tuples;
 
 /**
  * @author TeamworkGuy2

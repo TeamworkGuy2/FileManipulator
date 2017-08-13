@@ -1,4 +1,4 @@
-package fileManipulator;
+package twg2.fileManipulator;
 
 import java.util.ArrayList;
 import java.util.List;

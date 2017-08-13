@@ -1,6 +1,6 @@
 FileManipulator
 ==============
-version: 0.1.0
+version: 0.2.0
 
 A Command Line Interface (CLI) tool for searching, removing, and replace text in files. 
 The tool runs via the command line and can run in interactive mode where the user is asked for each required parameter or all parameters can be passed in and the tool will run immediately. 

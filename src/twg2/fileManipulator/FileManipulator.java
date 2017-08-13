@@ -1,4 +1,4 @@
-package fileManipulator;
+package twg2.fileManipulator;
 
 import java.io.BufferedReader;
 import java.io.File;
