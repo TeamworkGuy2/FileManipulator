@@ -1,7 +1,8 @@
 {
-	"version" : "0.2.0",
+	"version" : "0.3.0",
 	"name" : "file-manipulator",
 	"description" : "CLI tool for searching, removing, and replacing text in files",
+	"author": "TeamworkGuy2",
 	"homepage" : "https://github.com/TeamworkGuy2/FileManipulator",
 	"license" : "MIT",
 	"main" : "./bin/file_manipulator.jar",

@@ -4,7 +4,16 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-### [0.2.0](N/A) - 2017-08-13
+### [0.3.0](N/A) - 2018-03-31
+#### Changed
+* Added `-include` and `-exclude` path filter command line parameters, these parameters point to text files containing one pattern per line to use as an include or exclude filter against each tested file path.
+
+#### Fixed
+* Reading files with invalid UTF-8/ASCII characters, now replaces invalid character with default CharsetDecoder stand-in
+
+
+--------
+### [0.2.0](https://github.com/TeamworkGuy2/FileManipulator/commit/43ef5c5be42b0edb13c9ecca961bcb6c70725535) - 2017-08-13
 #### Changed
 * Renamed 'fileManipulator' package to 'twg2.fileManipulator'
 

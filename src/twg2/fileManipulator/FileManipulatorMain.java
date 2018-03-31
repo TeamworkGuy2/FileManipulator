@@ -12,9 +12,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import twg2.cli.ParameterSet;
-import twg2.fileManipulator.FileManipulator.DebugOp;
-import twg2.fileManipulator.FileManipulator.FileLineOp;
-import twg2.fileManipulator.FileManipulator.FileManipulatorOp;
+import twg2.fileManipulator.ManipulateLines.DebugOp;
+import twg2.fileManipulator.ManipulateLines.FileLineOp;
 
 
 /**
@@ -24,21 +23,20 @@ import twg2.fileManipulator.FileManipulator.FileManipulatorOp;
 public class FileManipulatorMain {
 
 
-	public static final void manipulateFileArgs(String[] args) throws IOException {
-		Charset cs = Charset.forName("UTF-8");
+	public static final void manipulateFileArgs(String[] args, Charset cs) throws IOException {
 		String newline = "\n";
 
 		System.out.println("args: " + Arrays.toString(args));
 
-		FileManipulatorParameters params = new FileManipulatorParameters();
+		FileManipulatorParameters params = new FileManipulatorParameters(cs);
 		ParameterSet<String> paramParser = FileManipulatorParameters.createParameterParser(params);
 
 		paramParser.parseInteractive(args, 0, new BufferedReader(new InputStreamReader(System.in)), System.out, "help");
 
-		Path projFolder = params.getProjectFolder();
-		FileManipulator folderManipulator = new FileManipulator(projFolder, params::isFileNameMatch, cs, newline);
-		FileManipulatorOp searchSet = folderManipulator.searchFor(params.getSearchString());
-		PrintFileMatchOps<File, String> printer = new PrintFileMatchOps<File, String>();
+		Path searchDir = params.getSearchDirectory();
+		FileManipulator folderManipulator = new FileManipulator(searchDir, params::isFileNameMatch, cs, newline);
+		ManipulateFileLines searchSet = folderManipulator.search(params.getSearchString());
+		PrintFileMatchOps printer = new PrintFileMatchOps();
 		printer.writer = System.out;
 
 		Enum<?> fileOp = params.getOperation();
@@ -58,21 +56,19 @@ public class FileManipulatorMain {
 			// save the files
 			folderManipulator.saveModifiedFiles(cs);
 			// print the list of modified files
-			System.out.println("project base folder: " + projFolder);
+			System.out.println("project base folder: " + searchDir);
 			searchSet.forEachFile((f, fileInfo) -> {
-				System.out.println("modified: " + projFolder.relativize(f.toPath()));
+				System.out.println("modified: " + searchDir.relativize(f.toPath()));
 			});
 		}
 
+		System.out.println("project: " + searchDir);
 		System.out.println(folderManipulator.getFileCount() + " total files, " +
 				searchSet.getMatchingSourceCount() + " files " + (isDebugOp ? "matched" : "modified"));
-
-		System.out.println("current project: " + projFolder);
 	}
 
 
-	public static final void manipulateFiles() throws IOException {
-		Charset cs = Charset.forName("UTF-8");
+	public static final void manipulateFiles(Charset cs) throws IOException {
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 
@@ -80,7 +76,7 @@ public class FileManipulatorMain {
 		String folderStr = in.nextLine();
 		Path projFolder = Paths.get(folderStr);
 		FileManipulator folderManipulator = new FileManipulator(projFolder, null, cs, "\n");
-		PrintFileMatchOps<File, String> printer = new PrintFileMatchOps<File, String>();
+		PrintFileMatchOps printer = new PrintFileMatchOps();
 		printer.writer = System.out;
 
 		boolean isDebugOp = true;
@@ -92,7 +88,7 @@ public class FileManipulatorMain {
 				break;
 			}
 
-			FileManipulatorOp searchSet = folderManipulator.searchFor(searchStr);
+			ManipulateFileLines searchSet = folderManipulator.search(searchStr);
 
 			System.out.print("operation (one of: " + Arrays.toString(FileLineOp.values()) +
 					", or " + Arrays.toString(DebugOp.values()) + "): ");
@@ -131,36 +127,36 @@ public class FileManipulatorMain {
 
 
 
-	public static class PrintFileMatchOps<K extends File, L extends String> {
+	public static class PrintFileMatchOps {
 		public PrintStream writer;
 		public Path root;
 
 
-		// Consumer<K>
-		public void matchingFile(K file) {
+		// Consumer<File>
+		public void matchingFile(File file) {
 			writer.println(relativeFile(file));
 		}
 
 
-		// Consumer<L>
-		public void matchingLine(L line) {
+		// Consumer<Object>
+		public void matchingLine(Object line) {
 			writer.println(line);
 		}
 
 
-		// BiConsumer<Integer, K>
-		public void matchingLineCountPerFile(Integer lineCount, K file) {
+		// BiConsumer<Integer, File>
+		public void matchingLineCountPerFile(Integer lineCount, File file) {
 			writer.println(lineCount + " matching lines in: " + relativeFile(file) + '\n');
 		}
 
 
-		// BiConsumer<String, K>
-		public void matchingLineFromFile(String line, K file) {
+		// BiConsumer<String, File>
+		public void matchingLineFromFile(String line, File file) {
 			writer.println(line + " matching line from: " + relativeFile(file) + '\n');
 		}
 
 
-		private Path relativeFile(K f) {
+		private Path relativeFile(File f) {
 			return (root != null ? f.toPath().relativize(root) : f.toPath());
 		}
 
@@ -170,7 +166,14 @@ public class FileManipulatorMain {
 
 
 	public static void main(String[] args) throws IOException {
-		manipulateFileArgs(args);
+		Charset cs = null;
+		try {
+			cs = Charset.forName("UTF-8");
+		} catch (Exception e) {
+			cs = Charset.defaultCharset();
+		}
+
+		manipulateFileArgs(args, cs);
 	}
 
 }

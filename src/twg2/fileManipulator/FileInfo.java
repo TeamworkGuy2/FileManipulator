@@ -8,7 +8,7 @@ import java.util.List;
  * @since 2014-10-16
  */
 public class FileInfo {
-	private File file;
+	private final File file;
 	private boolean linesModified;
 	private List<String> lines;
 
@@ -18,7 +18,6 @@ public class FileInfo {
 	 * @param lines
 	 */
 	public FileInfo(File file, List<String> lines) {
-		super();
 		this.file = file;
 		this.linesModified = false;
 		this.lines = lines;
@@ -30,8 +29,11 @@ public class FileInfo {
 	}
 
 
-	public void setFile(File file) {
-		this.file = file;
+	/**
+	 * @return a mutable set of lines representing the file's contents
+	 */
+	public List<String> getLines() {
+		return lines;
 	}
 
 
@@ -42,14 +44,6 @@ public class FileInfo {
 
 	public void setLinesModified(boolean linesModified) {
 		this.linesModified = linesModified;
-	}
-
-
-	/**
-	 * @return a mutable set of lines representing the file's contents
-	 */
-	public List<String> getLines() {
-		return lines;
 	}
 
 

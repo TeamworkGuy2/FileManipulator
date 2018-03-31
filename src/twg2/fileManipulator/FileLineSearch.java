@@ -1,6 +1,5 @@
 package twg2.fileManipulator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import twg2.collections.primitiveCollections.IntArrayList;
@@ -12,7 +11,7 @@ import twg2.collections.primitiveCollections.IntArrayList;
 final class FileLineSearch implements LineSearch<FileInfo, String> {
 	private FileInfo fileInfo;
 	private IntArrayList matchingLineNums;
-	private ArrayList<String> matchingLineStrs;
+	private List<String> matchingLineStrs;
 
 
 	/**
@@ -20,8 +19,7 @@ final class FileLineSearch implements LineSearch<FileInfo, String> {
 	 * @param matchingLineNums
 	 * @param matchingLineStrs
 	 */
-	public FileLineSearch(FileInfo fileInfo, IntArrayList matchingLineNums,
-			ArrayList<String> matchingLineStrs) {
+	public FileLineSearch(FileInfo fileInfo, IntArrayList matchingLineNums, List<String> matchingLineStrs) {
 		this.fileInfo = fileInfo;
 		this.matchingLineNums = matchingLineNums;
 		this.matchingLineStrs = matchingLineStrs;
@@ -53,7 +51,7 @@ final class FileLineSearch implements LineSearch<FileInfo, String> {
 
 
 	@Override
-	public ArrayList<String> getMatchingLines() {
+	public List<String> getMatchingLines() {
 		return matchingLineStrs;
 	}
 

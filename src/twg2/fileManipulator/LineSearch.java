@@ -1,6 +1,5 @@
 package twg2.fileManipulator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import twg2.collections.primitiveCollections.IntArrayList;
@@ -21,6 +20,6 @@ interface LineSearch<S, T> {
 
 	public IntArrayList getMatchingLineNums();
 
-	public ArrayList<T> getMatchingLines();
+	public List<T> getMatchingLines();
 
 }
